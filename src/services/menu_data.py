@@ -11,17 +11,17 @@ class MenuData:
         with open(source_path) as file:
             data = csv.reader(file, delimiter=",")
             next(data, None)
-            for name, price, ingredient, amount in data:
+            for dish, price, ingredient, amount in data:
                 dish_ingredient = Ingredient(ingredient)
-                dish = Dish(name, float(price))
-                if dish not in self.dishes:
-                    dish.add_ingredient_dependency(
+                dish_list = Dish(dish, float(price))
+                if dish_list not in self.dishes:
+                    dish_list.add_ingredient_dependency(
                         dish_ingredient, int(amount)
                     )
-                    self.dishes.add(dish)
+                    self.dishes.add(dish_list)
                 else:
                     for item in self.dishes:
-                        if item.name == name:
+                        if item.name == dish:
                             item.add_ingredient_dependency(
                                 dish_ingredient, int(amount)
                             )
